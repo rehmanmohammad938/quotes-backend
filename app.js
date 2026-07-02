@@ -19,8 +19,8 @@ const cors = require('cors')
 // ------------------------------------------------------------
 // STEP 1 — Import your database connection and Quote model
 
-
-
+const db = require('./db');
+const Quote = require('./models/quote');  
 
 
 // Importing Quote here registers it with the connection so
@@ -128,7 +128,7 @@ app.use((error, req, res, next) => {
 async function startApp() {
   // connect to your db here before the express server listens
 
-
+  db.sync();
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 }
 

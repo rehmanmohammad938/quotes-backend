@@ -17,10 +17,11 @@
 
 const {Sequelize} = require('sequelize');
 
-const sequelize = new Sequelize ('postgres://localhost:5432/quotes', {
+const sequelize = new Sequelize ('postgres://postgres:root@localhost:5432/quotes', {
     dialect: 'postgres',
     logging: false,
 });
 
 module.exports = sequelize;
+
 

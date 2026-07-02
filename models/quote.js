@@ -17,9 +17,9 @@
 //   4. Export the model
 // ============================================================
 
-const {DataTypes, Model} = require('sequelize');
-const sequelize = require('../db');
-const Quote = sequelize.define('Quote', {
+const {DataTypes, Sequelize} = require('sequelize');
+const db = require('../db');
+const Quote = db.define('Quote', {
     text: {
         type: DataTypes.STRING,
         allowNull: false,
