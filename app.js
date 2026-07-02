@@ -51,11 +51,12 @@ app.use(cors())          // allows the React frontend to call this server
 // ------------------------------------------------------------
 app.get('/api/quotes', async (req, res, next) => {
   try {
-
+    const quotes = await Quote.findAll();
+    res.json(quotes);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 
 // ------------------------------------------------------------
@@ -70,11 +71,13 @@ app.get('/api/quotes', async (req, res, next) => {
 // ------------------------------------------------------------
 app.post('/api/quotes', async (req, res, next) => {
   try {
-
+    const { text, author } = req.body;
+    const newQuote = await Quote.create({ text, author});
+    res.status(201).json(newQuote);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 
 // ------------------------------------------------------------
@@ -91,7 +94,14 @@ app.post('/api/quotes', async (req, res, next) => {
 // ------------------------------------------------------------
 app.delete('/api/quotes/:id', async (req, res, next) => {
   try {
+      const { id } = req.params;
+      const quote = await Quote.findByPk(id);
 
+      if (!quote) {
+        return res.status(404).json({error: "Quote not found"});
+      }
+      await quote.destroy();
+      res.status(204).end();
   } catch (error) {
     next(error)
   }
